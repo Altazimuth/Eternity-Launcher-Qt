@@ -59,7 +59,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit_4">
+            <widget class="QLineEdit" name="lineEdit_warp">
              <property name="placeholderText">
               <string/>
              </property>
@@ -76,7 +76,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_3">
+            <widget class="QLineEdit" name="lineEdit_difficulty">
              <property name="placeholderText">
               <string/>
              </property>
@@ -87,28 +87,28 @@
          <item>
           <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="checkBox_respawnMonsters">
              <property name="text">
               <string>Respawn Monsters</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QCheckBox" name="checkBox_4">
+            <widget class="QCheckBox" name="checkBox_noMonsters">
              <property name="text">
               <string>No Monsters</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="checkBox_fastMonsters">
              <property name="text">
               <string>Fast Monsters</string>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QCheckBox" name="checkBox_3">
+            <widget class="QCheckBox" name="checkBox_vanilla">
              <property name="text">
               <string>Vanilla Mode</string>
              </property>
@@ -155,7 +155,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="pushButton_warp_choose">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -168,7 +168,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_4">
+            <widget class="QPushButton" name="pushButton_warp_clear">
              <property name="text">
               <string>Clear</string>
              </property>
@@ -228,14 +228,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_viewDemo_choose">
            <property name="text">
             <string>Choose...</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pushButton_viewDemo_clear">
            <property name="text">
             <string>Clear</string>
            </property>
@@ -328,7 +328,7 @@
           </widget>
          </item>
          <item row="0" column="1" colspan="2">
-          <widget class="QComboBox" name="comboBox_2">
+          <widget class="QComboBox" name="comboBox_gameType">
            <item>
             <property name="text">
              <string>Single/Coop</string>
@@ -360,7 +360,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_5">
+          <widget class="QLineEdit" name="lineEdit_fragLimit">
            <property name="placeholderText">
             <string>Inf.</string>
            </property>
@@ -377,7 +377,7 @@
           </widget>
          </item>
          <item row="1" column="4">
-          <widget class="QLineEdit" name="lineEdit_7">
+          <widget class="QLineEdit" name="lineEdit_Turbo">
            <property name="placeholderText">
             <string>100</string>
            </property>
@@ -394,7 +394,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_6">
+          <widget class="QLineEdit" name="lineEdit_timeLimit">
            <property name="placeholderText">
             <string>Inf.</string>
            </property>
@@ -411,7 +411,7 @@
           </widget>
          </item>
          <item row="2" column="4">
-          <widget class="QLineEdit" name="lineEdit_8">
+          <widget class="QLineEdit" name="lineEdit_dmFlags">
            <property name="placeholderText">
             <string/>
            </property>
@@ -424,7 +424,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
-            <widget class="QPushButton" name="pushButton_5">
+            <widget class="QPushButton" name="pushButton_network_clear">
              <property name="text">
               <string>Clear</string>
              </property>
@@ -471,7 +471,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit">
+        <widget class="QPlainTextEdit" name="plainTextEdit_multiplayer">
          <property name="placeholderText">
           <string>--Set Up Multiplayer Here--</string>
          </property>
@@ -497,7 +497,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="comboBox_IWAD">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -533,7 +533,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="pushButton_addIWAD">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -546,7 +546,7 @@
      <string>+</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_7">
+   <widget class="QPushButton" name="pushButton_removeIWAD">
     <property name="geometry">
      <rect>
       <x>390</x>
@@ -571,7 +571,7 @@
     <property name="title">
      <string>Files and Add-ons</string>
     </property>
-    <widget class="QPushButton" name="pushButton_8">
+    <widget class="QPushButton" name="pushButton_saveGFS">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -584,7 +584,7 @@
       <string>Save as GFS...</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_9">
+    <widget class="QPushButton" name="pushButton_addFile">
      <property name="geometry">
       <rect>
        <x>350</x>
@@ -597,7 +597,7 @@
       <string>+</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_10">
+    <widget class="QPushButton" name="pushButton_removeIWAD_2">
      <property name="geometry">
       <rect>
        <x>370</x>
@@ -610,7 +610,7 @@
       <string>-</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="listWidget">
+    <widget class="QListWidget" name="listWidget_files">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -621,7 +621,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_11">
+   <widget class="QPushButton" name="pushButton_wiki">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -647,7 +647,7 @@
      <string>Other Parameters:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_9">
+   <widget class="QLineEdit" name="lineEdit_otherParameters">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -660,7 +660,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_12">
+   <widget class="QPushButton" name="pushButton_startGame">
     <property name="geometry">
      <rect>
       <x>670</x>
@@ -673,7 +673,7 @@
      <string>Start Game</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_2">
+   <widget class="QPlainTextEdit" name="plainTextEdit_commandLine">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -686,7 +686,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_13">
+   <widget class="QPushButton" name="pushButton_userDir">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -732,8 +732,8 @@
     <property name="title">
      <string>Advanced</string>
     </property>
-    <addaction name="actionAccess_base_folder"/>
-    <addaction name="actionShow_Eternity_Log"/>
+    <addaction name="action_openBase"/>
+    <addaction name="action_showLog"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -765,25 +765,25 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionAdd_File"/>
+    <addaction name="action_addFile"/>
     <addaction name="actionAdd_Recent"/>
     <addaction name="separator"/>
-    <addaction name="actionRemove_File"/>
-    <addaction name="actionSave_Files_into_GFS"/>
+    <addaction name="action_removeFile"/>
+    <addaction name="action_saveToGFS"/>
     <addaction name="separator"/>
-    <addaction name="actionAdd_Game_WAD"/>
-    <addaction name="actionRemove_Game_WAD"/>
+    <addaction name="action_addWAD"/>
+    <addaction name="action_removeWAD"/>
     <addaction name="separator"/>
-    <addaction name="actionSave"/>
+    <addaction name="action_save"/>
     <addaction name="separator"/>
-    <addaction name="actionAccess_Screenshots_and_Configs"/>
+    <addaction name="action_openUser"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionUndo"/>
-    <addaction name="actionRedo"/>
+    <addaction name="action_undo"/>
+    <addaction name="action_redo"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -791,7 +791,7 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionAccess_base_folder">
+  <action name="action_openBase">
    <property name="text">
     <string>Access /base folder</string>
    </property>
@@ -799,7 +799,7 @@
     <string>Ctrl+B</string>
    </property>
   </action>
-  <action name="actionShow_Eternity_Log">
+  <action name="action_showLog">
    <property name="text">
     <string>Show Eternity Log</string>
    </property>
@@ -814,7 +814,7 @@
     <string>eefaq</string>
    </property>
   </action>
-  <action name="actionAdd_File">
+  <action name="action_addFile">
    <property name="text">
     <string>Add File...</string>
    </property>
@@ -822,7 +822,7 @@
     <string>Ctrl+=</string>
    </property>
   </action>
-  <action name="actionUndo">
+  <action name="action_undo">
    <property name="text">
     <string>Undo</string>
    </property>
@@ -830,7 +830,7 @@
     <string>Ctrl+Z</string>
    </property>
   </action>
-  <action name="actionRedo">
+  <action name="action_redo">
    <property name="text">
     <string>Redo</string>
    </property>
@@ -908,7 +908,7 @@
     <string>Add Recent</string>
    </property>
   </action>
-  <action name="actionRemove_File">
+  <action name="action_removeFile">
    <property name="text">
     <string>Remove File</string>
    </property>
@@ -916,7 +916,7 @@
     <string>Ctrl+-</string>
    </property>
   </action>
-  <action name="actionSave_Files_into_GFS">
+  <action name="action_saveToGFS">
    <property name="text">
     <string>Save Files into GFS</string>
    </property>
@@ -924,7 +924,7 @@
     <string>Alt+Shift+S</string>
    </property>
   </action>
-  <action name="actionSave">
+  <action name="action_save">
    <property name="text">
     <string>Save</string>
    </property>
@@ -932,7 +932,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionAccess_Screenshots_and_Configs">
+  <action name="action_openUser">
    <property name="text">
     <string>Access Screenshots and Configs</string>
    </property>
@@ -940,7 +940,7 @@
     <string>Ctrl+U</string>
    </property>
   </action>
-  <action name="actionAdd_Game_WAD">
+  <action name="action_addWAD">
    <property name="text">
     <string>Add Game WAD...</string>
    </property>
@@ -948,7 +948,7 @@
     <string>Ctrl+Shift+=</string>
    </property>
   </action>
-  <action name="actionRemove_Game_WAD">
+  <action name="action_removeWAD">
    <property name="text">
     <string>Remove Game WAD</string>
    </property>
