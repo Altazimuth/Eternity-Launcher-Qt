@@ -597,7 +597,7 @@
       <string>+</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_removeIWAD_2">
+    <widget class="QPushButton" name="pushButton_removeFile">
      <property name="geometry">
       <rect>
        <x>370</x>
