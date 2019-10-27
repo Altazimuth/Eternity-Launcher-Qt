@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Eternity Launcher</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icon.qrc">
+    <normaloff>:/ee.ico</normaloff>:/ee.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -24,7 +28,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_warp">
      <attribute name="title">
@@ -698,6 +702,9 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton_13">
     <property name="geometry">
@@ -722,9 +729,237 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAdvanced">
+    <property name="title">
+     <string>Advanced</string>
+    </property>
+    <addaction name="actionAccess_base_folder"/>
+    <addaction name="actionShow_Eternity_Log"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <widget class="QMenu" name="menuOld_Documentation">
+     <property name="title">
+      <string>Old Documentation</string>
+     </property>
+     <addaction name="actioneefaq"/>
+     <addaction name="actionmapinfo"/>
+     <addaction name="actioneditref"/>
+     <addaction name="actionMBFEDIT"/>
+     <addaction name="actioncheats"/>
+     <addaction name="actionedf_ref"/>
+     <addaction name="actiongfs_ref"/>
+     <addaction name="actionversioning"/>
+     <addaction name="actiondehref"/>
+     <addaction name="actionextradata"/>
+     <addaction name="actionee_style_guide"/>
+     <addaction name="actioncodeptrs"/>
+     <addaction name="actionSMMUEDIT"/>
+     <addaction name="actionconsole_ref"/>
+    </widget>
+    <addaction name="actionEternity_Wiki"/>
+    <addaction name="menuOld_Documentation"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionAdd_File"/>
+    <addaction name="actionAdd_Recent"/>
+    <addaction name="separator"/>
+    <addaction name="actionRemove_File"/>
+    <addaction name="actionSave_Files_into_GFS"/>
+    <addaction name="separator"/>
+    <addaction name="actionAdd_Game_WAD"/>
+    <addaction name="actionRemove_Game_WAD"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionAccess_Screenshots_and_Configs"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuAdvanced"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAccess_base_folder">
+   <property name="text">
+    <string>Access /base folder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionShow_Eternity_Log">
+   <property name="text">
+    <string>Show Eternity Log</string>
+   </property>
+  </action>
+  <action name="actionEternity_Wiki">
+   <property name="text">
+    <string>Eternity Wiki</string>
+   </property>
+  </action>
+  <action name="actioneefaq">
+   <property name="text">
+    <string>eefaq</string>
+   </property>
+  </action>
+  <action name="actionAdd_File">
+   <property name="text">
+    <string>Add File...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="actionmapinfo">
+   <property name="text">
+    <string>mapinfo</string>
+   </property>
+  </action>
+  <action name="actioneditref">
+   <property name="text">
+    <string>editref</string>
+   </property>
+  </action>
+  <action name="actionMBFEDIT">
+   <property name="text">
+    <string>MBFEDIT</string>
+   </property>
+  </action>
+  <action name="actioncheats">
+   <property name="text">
+    <string>cheats</string>
+   </property>
+  </action>
+  <action name="actionedf_ref">
+   <property name="text">
+    <string>edf_ref</string>
+   </property>
+  </action>
+  <action name="actiongfs_ref">
+   <property name="text">
+    <string>gfs_ref</string>
+   </property>
+  </action>
+  <action name="actionversioning">
+   <property name="text">
+    <string>versioning</string>
+   </property>
+  </action>
+  <action name="actiondehref">
+   <property name="text">
+    <string>dehref</string>
+   </property>
+  </action>
+  <action name="actionextradata">
+   <property name="text">
+    <string>extradata</string>
+   </property>
+  </action>
+  <action name="actionee_style_guide">
+   <property name="text">
+    <string>ee_style_guide</string>
+   </property>
+  </action>
+  <action name="actioncodeptrs">
+   <property name="text">
+    <string>codeptrs</string>
+   </property>
+  </action>
+  <action name="actionSMMUEDIT">
+   <property name="text">
+    <string>SMMUEDIT</string>
+   </property>
+  </action>
+  <action name="actionconsole_ref">
+   <property name="text">
+    <string>console_ref</string>
+   </property>
+  </action>
+  <action name="actionAdd_Recent">
+   <property name="text">
+    <string>Add Recent</string>
+   </property>
+  </action>
+  <action name="actionRemove_File">
+   <property name="text">
+    <string>Remove File</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionSave_Files_into_GFS">
+   <property name="text">
+    <string>Save Files into GFS</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionAccess_Screenshots_and_Configs">
+   <property name="text">
+    <string>Access Screenshots and Configs</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="actionAdd_Game_WAD">
+   <property name="text">
+    <string>Add Game WAD...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+=</string>
+   </property>
+  </action>
+  <action name="actionRemove_Game_WAD">
+   <property name="text">
+    <string>Remove Game WAD</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+-</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="icon.qrc"/>
+ </resources>
  <connections/>
 </ui>
