@@ -31,6 +31,10 @@ private slots:
    void on_pushButton_warp_choose_released();
    void on_pushButton_warp_clear_released();
 
+   void on_pushButton_viewDemo_choose_released();
+   void on_pushButton_viewDemo_clear_released();
+
+
    void on_pushButton_startGame_released();
 
 private:

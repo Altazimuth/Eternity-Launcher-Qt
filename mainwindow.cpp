@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->lineEdit_difficulty, SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
    connect(ui->lineEdit_warp,       SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
    connect(ui->lineEdit_demoSave,   SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_demoPlay,   SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
 
    connect(ui->checkBox_respawnMonsters, SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
    connect(ui->checkBox_fastMonsters,    SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
@@ -98,7 +99,7 @@ void MainWindow::addIWAD()
    const QString fileStr = QFileDialog::getOpenFileName(
       this, tr("Open File"), QString(), tr("DOOM Game Files (*.wad *.iwad *.pke)")
    );
-   if(fileStr.size() == 0)
+   if(fileStr.isEmpty())
       return;
    if(ui->comboBox_IWAD->count() == 0)
       ui->comboBox_IWAD->insertItem(0, fileStr);
@@ -154,11 +155,23 @@ void MainWindow::on_pushButton_warp_choose_released()
    const QString fileStr = QFileDialog::getSaveFileName(
       this, tr("Save File"), QString(), tr("Demo Files (*.lmp)")
    );
-   ui->lineEdit_demoSave->setText(fileStr);
+   if(!fileStr.isEmpty())
+      ui->lineEdit_demoSave->setText(fileStr);
 }
 void MainWindow::on_pushButton_warp_clear_released() { ui->lineEdit_demoSave->clear(); }
+
+void MainWindow::on_pushButton_viewDemo_choose_released()
+{
+   const QString fileStr = QFileDialog::getOpenFileName(
+      this, tr("Open Demo"), QString(), tr("DOOM Demo (*.lmp)")
+   );
+   if(!fileStr.isEmpty())
+      ui->lineEdit_demoPlay->setText(fileStr);
+}
+void MainWindow::on_pushButton_viewDemo_clear_released() { ui->lineEdit_demoPlay->clear(); }
 
 void MainWindow::on_pushButton_startGame_released()
 {
    // Run EE w/ the appropriate args then kill this application
+   QCoreApplication::quit();
 }
