@@ -26,6 +26,7 @@ void MainWindow::updateParams()
    QStringList argsList;
    QPlainTextEdit *const argBox = ui->plainTextEdit_commandLine;
 
+   // Non-tab stuff
    if(ui->comboBox_IWAD->currentIndex() != -1)
       argsList.append("-iwad " + ui->comboBox_IWAD->currentText());
 
@@ -40,6 +41,7 @@ void MainWindow::updateParams()
       argsList.append(filesArgStr);
    }
 
+   // "Warp" tab
    if(!ui->lineEdit_difficulty->text().isEmpty())
       argsList.append("-skill " + ui->lineEdit_difficulty->text());
    if(!ui->lineEdit_warp->text().isEmpty())
@@ -56,6 +58,11 @@ void MainWindow::updateParams()
 
    if(!ui->lineEdit_demoPlay->text().isEmpty())
       argsList.append("-record " + ui->lineEdit_demoPlay->text());
+
+   // "View Demo" tab
+
+
+   // "Network" tab
 
    // Actually write results
    argBox->clear();
@@ -107,7 +114,7 @@ void MainWindow::openURL(const QString &urlStr)
 //
 
 void MainWindow::on_pushButton_addIWAD_released()    { addIWAD(); }
-void MainWindow::on_action_addWAD_triggered()        { addIWAD(); }
+void MainWindow::on_action_addIWAD_triggered()       { addIWAD(); }
 void MainWindow::on_pushButton_removeIWAD_released() { removeIWAD(); }
 void MainWindow::on_action_removeIWAD_triggered()    { removeIWAD(); }
 

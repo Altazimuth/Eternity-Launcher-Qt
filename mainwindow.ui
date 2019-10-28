@@ -334,6 +334,11 @@
              <string>Single/Coop</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>Deathmatch</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item row="0" column="3" colspan="2">
@@ -771,7 +776,7 @@
     <addaction name="action_removeFile"/>
     <addaction name="action_saveToGFS"/>
     <addaction name="separator"/>
-    <addaction name="action_addWAD"/>
+    <addaction name="action_addIWAD"/>
     <addaction name="action_removeIWAD"/>
     <addaction name="separator"/>
     <addaction name="action_save"/>
@@ -940,7 +945,7 @@
     <string>Ctrl+U</string>
    </property>
   </action>
-  <action name="action_addWAD">
+  <action name="action_addIWAD">
    <property name="text">
     <string>Add Game WAD...</string>
    </property>
