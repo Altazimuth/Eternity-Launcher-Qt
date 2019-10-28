@@ -16,6 +16,7 @@ public:
    ~MainWindow();
 
 private:
+   void updateParams();
    void addIWAD();
    void removeIWAD();
    void addFile();
@@ -35,6 +36,8 @@ private slots:
 
    void on_pushButton_wikiCommandArgs_released();
    void on_actionEternity_wiki_triggered();
+
+   void on_pushButton_startGame_released();
 
 private:
    Ui::MainWindow *ui;
