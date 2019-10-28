@@ -21,7 +21,16 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->pushButton_removeFile, SIGNAL(released()),  this, SLOT(removeFile()));
    connect(ui->action_removeFile,     SIGNAL(triggered()), this, SLOT(removeFile()));
 
+   // The infinite things that update params. It's sloppy and expensive (relatively) but it works.
+   connect(ui->comboBox_IWAD, SIGNAL(currentIndexChanged(int)), this, SLOT(updateParams()));
 
+   connect(ui->lineEdit_difficulty, SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_warp,       SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+
+   connect(ui->checkBox_respawnMonsters, SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
+   connect(ui->checkBox_fastMonsters,    SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
+   connect(ui->checkBox_noMonsters,      SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
+   connect(ui->checkBox_vanilla,         SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
 }
 
 MainWindow::~MainWindow()
@@ -80,7 +89,7 @@ void MainWindow::updateParams()
    // Actually write results
    argBox->clear();
    for(const QString &str : argsList)
-      argBox->appendPlainText(str + "\n");
+      argBox->appendPlainText(str); // Adds newline by default
 }
 
 void MainWindow::addIWAD()
@@ -88,16 +97,22 @@ void MainWindow::addIWAD()
    const QString fileStr = QFileDialog::getOpenFileName(
       this, tr("Open File"), QString(), tr("DOOM Game Files (*.wad *.iwad *.pke)")
    );
+   if(fileStr.size() == 0)
+      return;
    if(ui->comboBox_IWAD->count() == 0)
       ui->comboBox_IWAD->insertItem(0, fileStr);
    else
       ui->comboBox_IWAD->addItem(fileStr);
+
+   updateParams();
 }
 
 void MainWindow::removeIWAD()
 {
    if(ui->comboBox_IWAD->count() != 0 && ui->comboBox_IWAD->currentIndex() != -1)
       ui->comboBox_IWAD->removeItem(ui->comboBox_IWAD->currentIndex());
+
+   updateParams();
 }
 
 void MainWindow::addFile()
@@ -106,6 +121,8 @@ void MainWindow::addFile()
       this, tr("Open File"), QString(), tr("DOOM Game Files (*.wad *.pke)")
    );
    ui->listWidget_files->addItem(fileStr);
+
+   updateParams();
 }
 
 void MainWindow::removeFile()
@@ -113,6 +130,8 @@ void MainWindow::removeFile()
    const auto currItem = ui->listWidget_files->currentItem();
    if(currItem != nullptr)
       delete currItem;
+
+   updateParams();
 }
 
 void MainWindow::openURL(const QString &urlStr)
