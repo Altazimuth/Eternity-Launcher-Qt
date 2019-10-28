@@ -9,22 +9,22 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+   Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+   MainWindow(QWidget *parent = nullptr);
+   ~MainWindow();
 
 private slots:
-    void on_pushButton_addIWAD_released();
+   void on_pushButton_addIWAD_released();
 
-    void on_pushButton_removeIWAD_released();
+   void on_pushButton_removeIWAD_released();
 
-    void on_pushButton_addFile_released();
+   void on_pushButton_addFile_released();
 
-    void on_pushButton_removeFile_released();
+   void on_pushButton_removeFile_released();
 
 private:
-    Ui::MainWindow *ui;
+   Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
