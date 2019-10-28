@@ -24,7 +24,9 @@ private:
 
 private slots:
    void on_pushButton_addIWAD_released();
+   void on_action_addWAD_triggered();
    void on_pushButton_removeIWAD_released();
+   void on_action_removeIWAD_triggered();
 
    void on_pushButton_addFile_released();
    void on_action_addFile_triggered();

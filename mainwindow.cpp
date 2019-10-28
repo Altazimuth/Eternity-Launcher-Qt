@@ -65,7 +65,9 @@ void MainWindow::openWiki()
 //
 
 void MainWindow::on_pushButton_addIWAD_released()    { addIWAD(); }
+void MainWindow::on_action_addWAD_triggered()        { addIWAD(); }
 void MainWindow::on_pushButton_removeIWAD_released() { removeIWAD(); }
+void MainWindow::on_action_removeIWAD_triggered()    { removeIWAD(); }
 
 void MainWindow::on_pushButton_addFile_released()    { addFile(); }
 void MainWindow::on_action_addFile_triggered()       { addFile(); }
