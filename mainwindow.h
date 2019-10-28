@@ -20,7 +20,7 @@ private:
    void removeIWAD();
    void addFile();
    void removeFile();
-   void openWiki();
+   void openURL(const QString &urlStr);
 
 private slots:
    void on_pushButton_addIWAD_released();
@@ -33,8 +33,8 @@ private slots:
    void on_pushButton_removeFile_released();
    void on_action_removeFile_triggered();
 
-   void on_pushButton_wiki_released();
-   void on_actionEternity_Wiki_triggered();
+   void on_pushButton_wikiCommandArgs_released();
+   void on_actionEternity_wiki_triggered();
 
 private:
    Ui::MainWindow *ui;

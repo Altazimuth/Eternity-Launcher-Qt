@@ -53,9 +53,9 @@ void MainWindow::removeFile()
       delete currItem;
 }
 
-void MainWindow::openWiki()
+void MainWindow::openURL(const QString &urlStr)
 {
-   QUrl eternityWikiURL("http://eternity.youfailit.net/wiki/Main_Page");
+   QUrl eternityWikiURL(urlStr);
    QDesktopServices::openUrl(eternityWikiURL);
 }
 
@@ -74,5 +74,5 @@ void MainWindow::on_action_addFile_triggered()       { addFile(); }
 void MainWindow::on_pushButton_removeFile_released() { removeFile(); }
 void MainWindow::on_action_removeFile_triggered()    { removeFile(); }
 
-void MainWindow::on_pushButton_wiki_released() { openWiki(); }
-void MainWindow::on_actionEternity_Wiki_triggered() { openWiki(); }
+void MainWindow::on_pushButton_wikiCommandArgs_released() { openURL("http://eternity.youfailit.net/index.php?title=List_of_command_line_parameters"); }
+void MainWindow::on_actionEternity_wiki_triggered()       { openURL("http://eternity.youfailit.net/wiki/Main_Page"); }

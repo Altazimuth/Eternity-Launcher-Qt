@@ -621,7 +621,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_wiki">
+   <widget class="QPushButton" name="pushButton_wikiCommandArgs">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -758,7 +758,7 @@
      <addaction name="actionSMMUEDIT"/>
      <addaction name="actionconsole_ref"/>
     </widget>
-    <addaction name="actionEternity_Wiki"/>
+    <addaction name="actionEternity_wiki"/>
     <addaction name="menuOld_Documentation"/>
    </widget>
    <widget class="QMenu" name="menuFile">
@@ -804,7 +804,7 @@
     <string>Show Eternity Log</string>
    </property>
   </action>
-  <action name="actionEternity_Wiki">
+  <action name="actionEternity_wiki">
    <property name="text">
     <string>Eternity Wiki</string>
    </property>
