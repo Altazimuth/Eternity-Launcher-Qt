@@ -9,6 +9,19 @@ MainWindow::MainWindow(QWidget *parent)
    , ui(new Ui::MainWindow)
 {
    ui->setupUi(this);
+
+   // Set up events that use common functions
+   connect(ui->pushButton_addIWAD,    SIGNAL(released()),  this, SLOT(addIWAD()));
+   connect(ui->action_addIWAD,        SIGNAL(triggered()), this, SLOT(addIWAD()));
+   connect(ui->pushButton_removeIWAD, SIGNAL(released()),  this, SLOT(removeIWAD()));
+   connect(ui->action_removeIWAD,     SIGNAL(triggered()), this, SLOT(removeIWAD()));
+
+   connect(ui->pushButton_addFile,    SIGNAL(released()),  this, SLOT(addFile()));
+   connect(ui->action_addFile,        SIGNAL(triggered()), this, SLOT(addFile()));
+   connect(ui->pushButton_removeFile, SIGNAL(released()),  this, SLOT(removeFile()));
+   connect(ui->action_removeFile,     SIGNAL(triggered()), this, SLOT(removeFile()));
+
+
 }
 
 MainWindow::~MainWindow()
@@ -112,16 +125,6 @@ void MainWindow::openURL(const QString &urlStr)
 //
 // Events (slots)
 //
-
-void MainWindow::on_pushButton_addIWAD_released()    { addIWAD(); }
-void MainWindow::on_action_addIWAD_triggered()       { addIWAD(); }
-void MainWindow::on_pushButton_removeIWAD_released() { removeIWAD(); }
-void MainWindow::on_action_removeIWAD_triggered()    { removeIWAD(); }
-
-void MainWindow::on_pushButton_addFile_released()    { addFile(); }
-void MainWindow::on_action_addFile_triggered()       { addFile(); }
-void MainWindow::on_pushButton_removeFile_released() { removeFile(); }
-void MainWindow::on_action_removeFile_triggered()    { removeFile(); }
 
 void MainWindow::on_pushButton_wikiCommandArgs_released() { openURL("http://eternity.youfailit.net/index.php?title=List_of_command_line_parameters"); }
 void MainWindow::on_actionEternity_wiki_triggered()       { openURL("http://eternity.youfailit.net/wiki/Main_Page"); }

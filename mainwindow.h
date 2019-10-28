@@ -16,23 +16,14 @@ public:
    ~MainWindow();
 
 private:
+   void openURL(const QString &urlStr);
+
+private slots:
    void updateParams();
    void addIWAD();
    void removeIWAD();
    void addFile();
    void removeFile();
-   void openURL(const QString &urlStr);
-
-private slots:
-   void on_pushButton_addIWAD_released();
-   void on_action_addIWAD_triggered();
-   void on_pushButton_removeIWAD_released();
-   void on_action_removeIWAD_triggered();
-
-   void on_pushButton_addFile_released();
-   void on_action_addFile_triggered();
-   void on_pushButton_removeFile_released();
-   void on_action_removeFile_triggered();
 
    void on_pushButton_wikiCommandArgs_released();
    void on_actionEternity_wiki_triggered();
