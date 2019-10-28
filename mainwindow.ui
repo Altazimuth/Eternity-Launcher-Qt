@@ -177,7 +177,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_demoPlay">
+          <widget class="QLineEdit" name="lineEdit_demoSave">
            <property name="placeholderText">
             <string>No Demo Recording</string>
            </property>
@@ -246,7 +246,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLineEdit" name="lineEdit_demoSave">
+          <widget class="QLineEdit" name="lineEdit_demoPlay">
            <property name="placeholderText">
             <string>No Demo to Play</string>
            </property>

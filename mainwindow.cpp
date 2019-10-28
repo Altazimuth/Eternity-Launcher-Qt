@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
    connect(ui->lineEdit_difficulty, SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
    connect(ui->lineEdit_warp,       SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_demoSave,   SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
 
    connect(ui->checkBox_respawnMonsters, SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
    connect(ui->checkBox_fastMonsters,    SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
@@ -50,7 +51,7 @@ void MainWindow::updateParams()
 
    // Non-tab stuff
    if(ui->comboBox_IWAD->currentIndex() != -1)
-      argsList.append("-iwad " + ui->comboBox_IWAD->currentText());
+      argsList.append("-iwad \"" + ui->comboBox_IWAD->currentText() + "\"");
 
    if(ui->listWidget_files->count())
    {
@@ -58,7 +59,7 @@ void MainWindow::updateParams()
       for(int i = 0; i < ui->listWidget_files->count(); i++)
       {
          const QListWidgetItem *const item = ui->listWidget_files->item(i);
-         filesArgStr += " " + item->text();
+         filesArgStr += " \"" + item->text() + "\"";
       }
       argsList.append(filesArgStr);
    }
@@ -78,8 +79,8 @@ void MainWindow::updateParams()
    if(ui->checkBox_vanilla->isChecked())
       argsList.append("-vanilla");
 
-   if(!ui->lineEdit_demoPlay->text().isEmpty())
-      argsList.append("-record " + ui->lineEdit_demoPlay->text());
+   if(!ui->lineEdit_demoSave->text().isEmpty())
+      argsList.append("-record \"" + ui->lineEdit_demoSave->text() + "\"");
 
    // "View Demo" tab
 
@@ -147,6 +148,15 @@ void MainWindow::openURL(const QString &urlStr)
 
 void MainWindow::on_pushButton_wikiCommandArgs_released() { openURL("http://eternity.youfailit.net/index.php?title=List_of_command_line_parameters"); }
 void MainWindow::on_actionEternity_wiki_triggered()       { openURL("http://eternity.youfailit.net/wiki/Main_Page"); }
+
+void MainWindow::on_pushButton_warp_choose_released()
+{
+   const QString fileStr = QFileDialog::getSaveFileName(
+      this, tr("Save File"), QString(), tr("Demo Files (*.lmp)")
+   );
+   ui->lineEdit_demoSave->setText(fileStr);
+}
+void MainWindow::on_pushButton_warp_clear_released() { ui->lineEdit_demoSave->clear(); }
 
 void MainWindow::on_pushButton_startGame_released()
 {

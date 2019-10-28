@@ -28,6 +28,9 @@ private slots:
    void on_pushButton_wikiCommandArgs_released();
    void on_actionEternity_wiki_triggered();
 
+   void on_pushButton_warp_choose_released();
+   void on_pushButton_warp_clear_released();
+
    void on_pushButton_startGame_released();
 
 private:
