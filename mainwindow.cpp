@@ -63,14 +63,11 @@ void MainWindow::updateParams()
 
    if(ui->listWidget_files->count())
    {
-      QString filesArgStr("-file");
       commandArgsList.append("-file");
       for(int i = 0; i < ui->listWidget_files->count(); i++)
       {
          const QListWidgetItem *const item = ui->listWidget_files->item(i);
-         const QString fileStr = item->text();
-         filesArgStr += fileStr;
-         commandArgsList.append(fileStr);
+         commandArgsList.append(item->text());
       }
    }
 
@@ -105,6 +102,7 @@ void MainWindow::updateParams()
 
 
    // "Network" tab
+
 
    // Actually write results
    argBox->clear();
