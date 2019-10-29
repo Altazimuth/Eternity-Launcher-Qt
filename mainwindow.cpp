@@ -50,7 +50,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateParams()
 {
-   QStringList argsList;
    QPlainTextEdit *const argBox = ui->plainTextEdit_commandLine;
 
    commandArgsList.clear();
@@ -59,8 +58,7 @@ void MainWindow::updateParams()
    if(ui->comboBox_IWAD->currentIndex() != -1)
    {
       commandArgsList.append("-iwad");
-      commandArgsList.append("\"" + ui->comboBox_IWAD->currentText() + "\"");
-      argsList.append("-iwad \"" + ui->comboBox_IWAD->currentText() + "\"");
+      commandArgsList.append(ui->comboBox_IWAD->currentText());
    }
 
    if(ui->listWidget_files->count())
@@ -70,11 +68,10 @@ void MainWindow::updateParams()
       for(int i = 0; i < ui->listWidget_files->count(); i++)
       {
          const QListWidgetItem *const item = ui->listWidget_files->item(i);
-         const QString fileStr = " \"" + item->text() + "\"";
+         const QString fileStr = item->text();
          filesArgStr += fileStr;
          commandArgsList.append(fileStr);
       }
-      argsList.append(filesArgStr);
    }
 
    // "Warp" tab
@@ -82,41 +79,26 @@ void MainWindow::updateParams()
    {
       commandArgsList.append("-skill");
       commandArgsList.append(ui->lineEdit_difficulty->text());
-      argsList.append("-skill " + ui->lineEdit_difficulty->text());
    }
    if(!ui->lineEdit_warp->text().isEmpty())
    {
       commandArgsList.append("-warp");
       commandArgsList.append(ui->lineEdit_warp->text());
-      argsList.append("-warp " + ui->lineEdit_warp->text());
    }
 
    if(ui->checkBox_respawnMonsters->isChecked())
-   {
       commandArgsList.append("-respawn");
-      argsList.append("-respawn");
-   }
    if(ui->checkBox_fastMonsters->isChecked())
-   {
       commandArgsList.append("-fast");
-      argsList.append("-fast");
-   }
    if(ui->checkBox_noMonsters->isChecked())
-   {
       commandArgsList.append("-nomonsters");
-      argsList.append("-nomonsters");
-   }
    if(ui->checkBox_vanilla->isChecked())
-   {
       commandArgsList.append("-vanilla");
-      argsList.append("-vanilla");
-   }
 
    if(!ui->lineEdit_demoSave->text().isEmpty())
    {
       commandArgsList.append("-record");
-      commandArgsList.append("\"" + ui->lineEdit_demoSave->text() + "\"");
-      argsList.append("-record \"" + ui->lineEdit_demoSave->text() + "\"");
+      commandArgsList.append(ui->lineEdit_demoSave->text());
    }
 
    // "View Demo" tab
@@ -126,8 +108,15 @@ void MainWindow::updateParams()
 
    // Actually write results
    argBox->clear();
-   for(const QString &str : argsList)
-      argBox->appendPlainText(str); // Adds newline by default
+   for(const QString &str : commandArgsList)
+   {
+      if(argBox->textCursor().columnNumber() == 1)
+         argBox->insertPlainText(str);
+      else if(str.startsWith("-"))
+         argBox->appendPlainText(str); // Adds newline by default
+      else
+         argBox->insertPlainText(" " + str);
+   }
 }
 
 void MainWindow::addIWAD()
