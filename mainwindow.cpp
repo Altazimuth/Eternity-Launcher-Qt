@@ -5,6 +5,8 @@
 #include <QFileDialog>
 #include <QProcess>
 
+static QStringList commandArgsList;
+
 MainWindow::MainWindow(QWidget *parent)
    : QMainWindow(parent)
    , ui(new Ui::MainWindow)
@@ -51,38 +53,71 @@ void MainWindow::updateParams()
    QStringList argsList;
    QPlainTextEdit *const argBox = ui->plainTextEdit_commandLine;
 
+   commandArgsList.clear();
+
    // Non-tab stuff
    if(ui->comboBox_IWAD->currentIndex() != -1)
+   {
+      commandArgsList.append("-iwad");
+      commandArgsList.append("\"" + ui->comboBox_IWAD->currentText() + "\"");
       argsList.append("-iwad \"" + ui->comboBox_IWAD->currentText() + "\"");
+   }
 
    if(ui->listWidget_files->count())
    {
-      QString filesArgStr("-files");
+      QString filesArgStr("-file");
+      commandArgsList.append("-file");
       for(int i = 0; i < ui->listWidget_files->count(); i++)
       {
          const QListWidgetItem *const item = ui->listWidget_files->item(i);
-         filesArgStr += " \"" + item->text() + "\"";
+         const QString fileStr = " \"" + item->text() + "\"";
+         filesArgStr += fileStr;
+         commandArgsList.append(fileStr);
       }
       argsList.append(filesArgStr);
    }
 
    // "Warp" tab
    if(!ui->lineEdit_difficulty->text().isEmpty())
+   {
+      commandArgsList.append("-skill");
+      commandArgsList.append(ui->lineEdit_difficulty->text());
       argsList.append("-skill " + ui->lineEdit_difficulty->text());
+   }
    if(!ui->lineEdit_warp->text().isEmpty())
+   {
+      commandArgsList.append("-warp");
+      commandArgsList.append(ui->lineEdit_warp->text());
       argsList.append("-warp " + ui->lineEdit_warp->text());
+   }
 
    if(ui->checkBox_respawnMonsters->isChecked())
+   {
+      commandArgsList.append("-respawn");
       argsList.append("-respawn");
+   }
    if(ui->checkBox_fastMonsters->isChecked())
+   {
+      commandArgsList.append("-fast");
       argsList.append("-fast");
+   }
    if(ui->checkBox_noMonsters->isChecked())
+   {
+      commandArgsList.append("-nomonsters");
       argsList.append("-nomonsters");
+   }
    if(ui->checkBox_vanilla->isChecked())
+   {
+      commandArgsList.append("-vanilla");
       argsList.append("-vanilla");
+   }
 
    if(!ui->lineEdit_demoSave->text().isEmpty())
+   {
+      commandArgsList.append("-record");
+      commandArgsList.append("\"" + ui->lineEdit_demoSave->text() + "\"");
       argsList.append("-record \"" + ui->lineEdit_demoSave->text() + "\"");
+   }
 
    // "View Demo" tab
 
@@ -176,11 +211,10 @@ void MainWindow::on_pushButton_viewDemo_clear_released() { ui->lineEdit_demoPlay
 //
 void MainWindow::on_pushButton_startGame_released()
 {
-   QProcess process;
-#if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
-   process.startDetached("\"" + QCoreApplication::applicationDirPath() +"/Eternity.exe\"");
+#ifdef Q_OS_WIN
+   QProcess::startDetached("\"" + QCoreApplication::applicationDirPath() +"/Eternity.exe\"", commandArgsList);
 #else
-   process.startDetached("\"" + QCoreApplication::applicationDirPath() +"/eternity\"");
+   QProcess::startDetached("\"" + QCoreApplication::applicationDirPath() +"/eternity\"", commandArgsList);
 #endif
 
    QCoreApplication::quit();
