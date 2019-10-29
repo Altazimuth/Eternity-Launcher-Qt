@@ -665,6 +665,9 @@
        <height>121</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Lists the game files to load at startup time.</string>
+     </property>
     </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_wikiCommandArgs">
@@ -701,6 +704,9 @@
       <width>601</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type here other parameters not included in the user interface. You can click on the question mark button to visit the wiki page on available parameters. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="placeholderText">
      <string>No Extra Parameters</string>
@@ -740,6 +746,9 @@
       <width>411</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Access the Eternity data folder for captured screenshots and for reviewing configuration files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>Screenshots, Configs</string>
