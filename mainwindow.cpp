@@ -3,6 +3,7 @@
 
 #include <QDesktopServices>
 #include <QFileDialog>
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent)
    : QMainWindow(parent)
@@ -170,8 +171,17 @@ void MainWindow::on_pushButton_viewDemo_choose_released()
 }
 void MainWindow::on_pushButton_viewDemo_clear_released() { ui->lineEdit_demoPlay->clear(); }
 
+//
+// Run EE w/ the appropriate args then kill this application
+//
 void MainWindow::on_pushButton_startGame_released()
 {
-   // Run EE w/ the appropriate args then kill this application
+   QProcess process;
+#if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
+   process.startDetached("\"" + QCoreApplication::applicationDirPath() +"/Eternity.exe\"");
+#else
+   process.startDetached("\"" + QCoreApplication::applicationDirPath() +"/eternity\"");
+#endif
+
    QCoreApplication::quit();
 }
