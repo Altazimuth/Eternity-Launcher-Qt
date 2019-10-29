@@ -27,10 +27,11 @@ MainWindow::MainWindow(QWidget *parent)
    // The infinite things that update params. It's sloppy and expensive (relatively) but it works.
    connect(ui->comboBox_IWAD, SIGNAL(currentIndexChanged(int)), this, SLOT(updateParams()));
 
-   connect(ui->lineEdit_difficulty, SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
-   connect(ui->lineEdit_warp,       SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
-   connect(ui->lineEdit_demoSave,   SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
-   connect(ui->lineEdit_demoPlay,   SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_difficulty,      SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_warp,            SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_demoSave,        SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_demoPlay,        SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_otherParameters, SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
 
    connect(ui->checkBox_respawnMonsters, SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
    connect(ui->checkBox_fastMonsters,    SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
@@ -114,6 +115,20 @@ void MainWindow::updateParams()
          argBox->appendPlainText(str); // Adds newline by default
       else
          argBox->insertPlainText(" " + str);
+   }
+
+   // Other parameters stuff has to be done last based on how I coded result writing
+   if(!ui->lineEdit_otherParameters->text().isEmpty())
+   {
+      // TODO: Actually parse args
+      commandArgsList.append(
+         ui->lineEdit_otherParameters->text().split(
+            QRegularExpression("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)"), // MAGIC
+            QString::SkipEmptyParts
+         )
+      );
+
+      argBox->appendPlainText(ui->lineEdit_otherParameters->text());
    }
 }
 
