@@ -65,6 +65,9 @@ void MainWindow::postDisplayConfig()
 
    for(QToolButton *const &button : squareButtons)
       button->setFixedSize(length, length);
+
+   ui->lineEdit_otherParameters->setFixedHeight(length);
+   ui->pushButton_startGame->setFixedHeight(length);
 }
 
 //=============================================================================
