@@ -44,6 +44,29 @@ MainWindow::~MainWindow()
    delete ui;
 }
 
+void MainWindow::postDisplayConfig()
+{
+   QToolButton *const squareButtons[] = {
+      ui->toolButton_addIWAD,
+      ui->toolButton_removeIWAD,
+      ui->toolButton_removeFile,
+      ui->toolButton_addFile,
+      ui->toolButton_removeFile,
+      ui->toolButton_wikiCommandArgs
+   };
+
+   int length = -1;
+   for(const QToolButton *const button : squareButtons)
+   {
+      const int maxSide = qMax(button->width(), button->height());
+      if(maxSide > length)
+         length = maxSide;
+   }
+
+   for(QToolButton *const &button : squareButtons)
+      button->setFixedSize(length, length);
+}
+
 //=============================================================================
 //
 // Common event code

@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow
 public:
    MainWindow(QWidget *parent = nullptr);
    ~MainWindow();
+   void postDisplayConfig();
 
 private:
    void openURL(const QString &urlStr);
