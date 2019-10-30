@@ -25,7 +25,7 @@ private slots:
    void addFile();
    void removeFile();
 
-   void on_pushButton_wikiCommandArgs_released();
+   void on_toolButton_wikiCommandArgs_released();
    void on_actionEternity_wiki_triggered();
 
    void on_pushButton_warp_choose_released();

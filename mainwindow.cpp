@@ -14,14 +14,14 @@ MainWindow::MainWindow(QWidget *parent)
    ui->setupUi(this);
 
    // Set up events that use common functions
-   connect(ui->pushButton_addIWAD,    SIGNAL(released()),  this, SLOT(addIWAD()));
+   connect(ui->toolButton_addIWAD,    SIGNAL(released()),  this, SLOT(addIWAD()));
    connect(ui->action_addIWAD,        SIGNAL(triggered()), this, SLOT(addIWAD()));
-   connect(ui->pushButton_removeIWAD, SIGNAL(released()),  this, SLOT(removeIWAD()));
+   connect(ui->toolButton_removeIWAD, SIGNAL(released()),  this, SLOT(removeIWAD()));
    connect(ui->action_removeIWAD,     SIGNAL(triggered()), this, SLOT(removeIWAD()));
 
-   connect(ui->pushButton_addFile,    SIGNAL(released()),  this, SLOT(addFile()));
+   connect(ui->toolButton_addFile,    SIGNAL(released()),  this, SLOT(addFile()));
    connect(ui->action_addFile,        SIGNAL(triggered()), this, SLOT(addFile()));
-   connect(ui->pushButton_removeFile, SIGNAL(released()),  this, SLOT(removeFile()));
+   connect(ui->toolButton_removeFile, SIGNAL(released()),  this, SLOT(removeFile()));
    connect(ui->action_removeFile,     SIGNAL(triggered()), this, SLOT(removeFile()));
 
    // The infinite things that update params. It's sloppy and expensive (relatively) but it works.
@@ -185,7 +185,7 @@ void MainWindow::openURL(const QString &urlStr)
 // Events (slots)
 //
 
-void MainWindow::on_pushButton_wikiCommandArgs_released() { openURL("http://eternity.youfailit.net/index.php?title=List_of_command_line_parameters"); }
+void MainWindow::on_toolButton_wikiCommandArgs_released() { openURL("http://eternity.youfailit.net/index.php?title=List_of_command_line_parameters"); }
 void MainWindow::on_actionEternity_wiki_triggered()       { openURL("http://eternity.youfailit.net/wiki/Main_Page"); }
 
 void MainWindow::on_pushButton_warp_choose_released()
