@@ -49,7 +49,6 @@ void MainWindow::postDisplayConfig()
    QToolButton *const squareButtons[] = {
       ui->toolButton_addIWAD,
       ui->toolButton_removeIWAD,
-      ui->toolButton_removeFile,
       ui->toolButton_addFile,
       ui->toolButton_removeFile,
       ui->toolButton_wikiCommandArgs
