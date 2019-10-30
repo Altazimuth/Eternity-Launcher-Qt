@@ -54,6 +54,12 @@ void MainWindow::postDisplayConfig()
       ui->toolButton_removeFile,
       ui->toolButton_wikiCommandArgs
    };
+   QWidget *const alignedWidgets[] = {
+      ui->comboBox_IWAD,
+      ui->pushButton_saveGFS,
+      ui->lineEdit_otherParameters,
+      ui->pushButton_startGame,
+   };
 
    int length = -1;
    for(const QToolButton *const button : squareButtons)
@@ -62,12 +68,16 @@ void MainWindow::postDisplayConfig()
       if(maxSide > length)
          length = maxSide;
    }
+   for(const QWidget *const widget : alignedWidgets)
+   {
+      if(widget->height() > length)
+         length = widget->height();
+   }
 
    for(QToolButton *const &button : squareButtons)
       button->setFixedSize(length, length);
-
-   ui->lineEdit_otherParameters->setFixedHeight(length);
-   ui->pushButton_startGame->setFixedHeight(length);
+   for(QWidget *const &widget : alignedWidgets)
+      widget->setFixedHeight(length);
 }
 
 //=============================================================================
