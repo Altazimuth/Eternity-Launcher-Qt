@@ -46,6 +46,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::postDisplayConfig()
 {
+   // Adjusting size of various widgets
    QToolButton *const squareButtons[] = {
       ui->toolButton_addIWAD,
       ui->toolButton_removeIWAD,
@@ -77,6 +78,13 @@ void MainWindow::postDisplayConfig()
       button->setFixedSize(length, length);
    for(QWidget *const &widget : alignedWidgets)
       widget->setFixedHeight(length);
+
+   // Locking size of various things
+   const int editHeight = ui->plainTextEdit_commandLine->height();
+   ui->plainTextEdit_commandLine->setFixedHeight(editHeight);
+   ui->label_eternityLogo->setFixedSize(editHeight, editHeight);
+
+   ui->tabWidget->setFixedSize(ui->tabWidget->width(), ui->tabWidget->height());
 }
 
 //=============================================================================
