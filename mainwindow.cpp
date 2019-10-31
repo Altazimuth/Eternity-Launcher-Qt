@@ -203,6 +203,8 @@ void MainWindow::addFile()
    const QString fileStr = QFileDialog::getOpenFileName(
       this, tr("Open File"), QString(), tr("DOOM Game Files (*.wad *.pke)")
    );
+   if(fileStr.isEmpty())
+      return;
    ui->listWidget_files->addItem(fileStr);
 
    updateParams();
@@ -257,9 +259,9 @@ void MainWindow::on_pushButton_viewDemo_clear_released() { ui->lineEdit_demoPlay
 void MainWindow::on_pushButton_startGame_released()
 {
 #ifdef Q_OS_WIN
-   QProcess::startDetached("\"" + QCoreApplication::applicationDirPath() +"/Eternity.exe\"", commandArgsList);
+   QProcess::startDetached(QCoreApplication::applicationDirPath() +"/Eternity.exe", commandArgsList);
 #else
-   QProcess::startDetached("\"" + QCoreApplication::applicationDirPath() +"/eternity\"", commandArgsList);
+   QProcess::startDetached(QCoreApplication::applicationDirPath() +"/eternity", commandArgsList);
 #endif
 
    QCoreApplication::quit();
