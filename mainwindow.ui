@@ -34,7 +34,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_3">
+         <widget class="QLabel" name="label_IWAD">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -94,7 +94,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox">
+         <widget class="QGroupBox" name="groupBox_filesAndAddons">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -198,7 +198,7 @@
              <item>
               <layout class="QGridLayout" name="gridLayout_2">
                <item row="0" column="0">
-                <widget class="QLabel" name="label">
+                <widget class="QLabel" name="label_warp">
                  <property name="text">
                   <string>Warp to Level:</string>
                  </property>
@@ -215,7 +215,7 @@
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QLabel" name="label_2">
+                <widget class="QLabel" name="label_difficulty">
                  <property name="text">
                   <string>Difficulty:</string>
                  </property>
@@ -288,7 +288,7 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QLabel" name="label_5">
+                <widget class="QLabel" name="label_demoSave">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                    <horstretch>0</horstretch>
@@ -367,7 +367,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="label_demoPlay">
                <property name="text">
                 <string>Play Demo:</string>
                </property>
@@ -467,7 +467,7 @@
            <item>
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_6">
+              <widget class="QLabel" name="label_gameType">
                <property name="text">
                 <string>Game Type:</string>
                </property>
@@ -504,7 +504,7 @@
               </spacer>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="label_fragLimit">
                <property name="text">
                 <string>Frag Limit:</string>
                </property>
@@ -521,7 +521,7 @@
               </widget>
              </item>
              <item row="1" column="2" colspan="2">
-              <widget class="QLabel" name="label_9">
+              <widget class="QLabel" name="label_turbo">
                <property name="text">
                 <string>Turbo:</string>
                </property>
@@ -531,14 +531,14 @@
               </widget>
              </item>
              <item row="1" column="4">
-              <widget class="QLineEdit" name="lineEdit_Turbo">
+              <widget class="QLineEdit" name="lineEdit_turbo">
                <property name="placeholderText">
                 <string>100</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="label_8">
+              <widget class="QLabel" name="label_timeLimit">
                <property name="text">
                 <string>Time Limit:</string>
                </property>
@@ -555,7 +555,7 @@
               </widget>
              </item>
              <item row="2" column="2" colspan="2">
-              <widget class="QLabel" name="label_10">
+              <widget class="QLabel" name="label_dmFlags">
                <property name="text">
                 <string>DM Flags:</string>
                </property>
@@ -583,7 +583,7 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="label_connection">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -608,7 +608,7 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_4">
                <item>
-                <widget class="QLabel" name="label_12">
+                <widget class="QLabel" name="label_playerNumber">
                  <property name="text">
                   <string>Player Number:</string>
                  </property>
@@ -630,7 +630,7 @@
               </layout>
              </item>
              <item>
-              <widget class="QLabel" name="label_15">
+              <widget class="QLabel" name="label_playerIPs">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -719,7 +719,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="label_13">
+       <widget class="QLabel" name="label_otherParams">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
           <horstretch>0</horstretch>
