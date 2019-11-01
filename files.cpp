@@ -8,31 +8,61 @@
 #include <QDir>
 #include <QDirIterator>
 
+enum
+{
+   BASE_ISGOOD,
+   BASE_NOTEXIST,
+   //BASE_NOTDIR,
+   BASE_CANTOPEN,
+   BASE_NOTEEBASE,
+   BASE_NUMCODES
+};
+
+enum
+{
+   BASE_ENVIRON,
+   BASE_HOMEDIR,
+   BASE_INSTALL,
+   BASE_WORKING,
+   BASE_EXEDIR,
+   BASE_BASEPARENT, // for user dir only
+   BASE_NUMBASE
+};
+
 //=============================================================================
 //
 // /base code
 //
 
-bool CheckBasePath(const QDir &path)
+int CheckBasePath(const QDir &path)
 {
-   QDirIterator itr(path);
+   int ret = -1;
 
-   int score = 0;
-   while(itr.hasNext())
+   if(path.exists())
    {
-      const QString filename = itr.fileName();
+      int score = 0;
 
-      if(filename == "startup.wad")
-         ++score;
-      else if(filename == "root.edf")
-         ++score;
-      else if(filename == "doom")
-         ++score;
+      for(QDirIterator itr(path); itr.hasNext(); itr.next())
+      {
+         const QString filename = itr.fileName();
 
-      itr.next();
+         if(filename == "startup.wad")
+            ++score;
+         else if(filename == "root.edf")
+            ++score;
+         else if(filename == "doom")
+            ++score;
+      }
+
+      if(score >= 3)
+         ret = BASE_ISGOOD;
+      else
+         ret = BASE_NOTEEBASE;
    }
+   else
+      ret = BASE_NOTEXIST;
 
-   return score >= 3;
+   return ret;
 }
 
 const char *PlatformInstallDirectory()
@@ -53,22 +83,22 @@ const char *PlatformInstallDirectory()
 void SetBasePath()
 {
    QDir basePath;
+   int res = BASE_NOTEXIST, source = BASE_NUMBASE;
 
    if(qEnvironmentVariableIsSet("ETERNITYBASE"))
    {
       QDir eternityBase(qEnvironmentVariable("ETERNITYBASE"));
-      if(eternityBase.exists() && CheckBasePath(eternityBase))
-      {
+      res = CheckBasePath(eternityBase);
+      if(res == BASE_ISGOOD)
          basePath = eternityBase;
-         return;
-      }
    }
 
    const char *s = PlatformInstallDirectory();
-   if(s != nullptr)
+   if(res != BASE_ISGOOD && s != nullptr)
    {
       const QDir platformInstallDir(s);
-      if(CheckBasePath(platformInstallDir))
+      res = CheckBasePath(platformInstallDir);
+      if(res == BASE_ISGOOD)
       {
          basePath = platformInstallDir;
          return;
@@ -80,23 +110,23 @@ void SetBasePath()
 #else
    QFileInfo eternityPath = QCoreApplication::applicationDirPath() + "/eternity";
 #endif
-   if(eternityPath.exists())
+   if(res != BASE_ISGOOD && eternityPath.exists())
    {
       QDir exeBasePath = QCoreApplication::applicationDirPath() + "/base";
-      if(exeBasePath.exists() && CheckBasePath(exeBasePath))
-      {
+      res = CheckBasePath(exeBasePath);
+      if(res == BASE_ISGOOD)
          basePath = exeBasePath;
-         return;
-      }
    }
 
-   if(!basePath.exists())
+   if(res != BASE_ISGOOD)
    {
       QDir exeWorkingPath = QDir::currentPath() + "/base";
-      if(exeWorkingPath.exists() && CheckBasePath(exeWorkingPath))
-      {
+      res = CheckBasePath(exeWorkingPath);
+      if(res == BASE_ISGOOD)
          basePath = exeWorkingPath;
-         return;
+      else
+      {
+         // TODO: Oops
       }
    }
 }
