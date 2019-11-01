@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "files.h"
 
 #include <QDesktopServices>
 #include <QFileDialog>
@@ -12,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
    , ui(new Ui::MainWindow)
 {
    ui->setupUi(this);
+
+   SetBasePath();
+   SetUserPath();
 
    // Set up events that use common functions
    connect(ui->toolButton_addIWAD,    SIGNAL(released()),  this, SLOT(addIWAD()));
