@@ -82,7 +82,7 @@ void SetBasePath()
 #endif
    if(eternityPath.exists())
    {
-      QDir exeBasePath = QCoreApplication::applicationDirPath() + QDir::separator() + "base";
+      QDir exeBasePath = QCoreApplication::applicationDirPath() + "/base";
       if(exeBasePath.exists() && CheckBasePath(exeBasePath))
       {
          basePath = exeBasePath;
@@ -92,7 +92,7 @@ void SetBasePath()
 
    if(!basePath.exists())
    {
-      QDir exeWorkingPath = QDir::currentPath() + QDir::separator() + "base";
+      QDir exeWorkingPath = QDir::currentPath() + "/base";
       if(exeWorkingPath.exists() && CheckBasePath(exeWorkingPath))
       {
          basePath = exeWorkingPath;
@@ -158,7 +158,7 @@ void SetUserPath()
 #endif
    if(eternityPath.exists())
    {
-      QDir exeUserPath = QCoreApplication::applicationDirPath() + QDir::separator() + "user";
+      QDir exeUserPath = QCoreApplication::applicationDirPath() + "/user";
       if(exeUserPath.exists() && CheckUserPath(exeUserPath))
       {
          userPath = exeUserPath;
@@ -168,7 +168,7 @@ void SetUserPath()
 
    if(!userPath.exists())
    {
-      QDir exeWorkingPath = QDir::currentPath() + QDir::separator() + "user";
+      QDir exeWorkingPath = QDir::currentPath() + "/user";
       if(exeWorkingPath.exists() && CheckUserPath(exeWorkingPath))
       {
          userPath = exeWorkingPath;
@@ -178,7 +178,7 @@ void SetUserPath()
 
    if(!userPath.exists())
    {
-      QDir exeWorkingPath = QDir::currentPath() + QDir::separator() + ".." + QDir::separator() + "user";
+      QDir exeWorkingPath = QDir::currentPath() + "/../user";
       if(exeWorkingPath.exists() && CheckUserPath(exeWorkingPath))
       {
          userPath = exeWorkingPath;
