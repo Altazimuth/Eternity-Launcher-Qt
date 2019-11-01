@@ -422,7 +422,7 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout">
              <item>
-              <widget class="QRadioButton" name="radioButton">
+              <widget class="QRadioButton" name="radioButton_normalDemo">
                <property name="text">
                 <string>Normal Demo</string>
                </property>
@@ -432,14 +432,14 @@
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_3">
+              <widget class="QRadioButton" name="radioButton_timeDemo">
                <property name="text">
                 <string>Time Demo</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_2">
+              <widget class="QRadioButton" name="radioButton_fastDemo">
                <property name="text">
                 <string>Fast Demo</string>
                </property>

@@ -29,18 +29,32 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->action_removeFile,     SIGNAL(triggered()), this, SLOT(removeFile()));
 
    // The infinite things that update params. It's sloppy and expensive (relatively) but it works.
-   connect(ui->comboBox_IWAD, SIGNAL(currentIndexChanged(int)), this, SLOT(updateParams()));
+   connect(ui->comboBox_IWAD,     SIGNAL(currentIndexChanged(int)), this, SLOT(updateParams()));
+   connect(ui->comboBox_gameType, SIGNAL(currentIndexChanged(int)), this, SLOT(updateParams()));
 
    connect(ui->lineEdit_difficulty,      SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
    connect(ui->lineEdit_warp,            SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
    connect(ui->lineEdit_demoSave,        SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
    connect(ui->lineEdit_demoPlay,        SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
    connect(ui->lineEdit_otherParameters, SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_fragLimit,       SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_timeLimit,       SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_turbo,           SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_dmFlags,         SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_ip_1,            SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_ip_2,            SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
+   connect(ui->lineEdit_ip_3,            SIGNAL(textChanged(QString)), this, SLOT(updateParams()));
 
-   connect(ui->checkBox_respawnMonsters, SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
-   connect(ui->checkBox_fastMonsters,    SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
-   connect(ui->checkBox_noMonsters,      SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
-   connect(ui->checkBox_vanilla,         SIGNAL(stateChanged(int)), this, SLOT(updateParams()));
+   connect(ui->checkBox_respawnMonsters, SIGNAL(stateChanged(int)),    this, SLOT(updateParams()));
+   connect(ui->checkBox_fastMonsters,    SIGNAL(stateChanged(int)),    this, SLOT(updateParams()));
+   connect(ui->checkBox_noMonsters,      SIGNAL(stateChanged(int)),    this, SLOT(updateParams()));
+   connect(ui->checkBox_vanilla,         SIGNAL(stateChanged(int)),    this, SLOT(updateParams()));
+
+   connect(ui->radioButton_normalDemo,   SIGNAL(toggled(bool)),        this, SLOT(updateParams()));
+   connect(ui->radioButton_timeDemo,     SIGNAL(toggled(bool)),        this, SLOT(updateParams()));
+   connect(ui->radioButton_fastDemo,     SIGNAL(toggled(bool)),        this, SLOT(updateParams()));
+
+   connect(ui->spinBox_playerNumber,     SIGNAL(valueChanged(int)),    this, SLOT(updateParams()));
 }
 
 MainWindow::~MainWindow()
@@ -147,21 +161,74 @@ void MainWindow::updateParams()
    }
 
    // "View Demo" tab
-
+   if(!ui->lineEdit_demoPlay->text().isEmpty())
+   {
+      if(ui->radioButton_normalDemo->isChecked())
+         commandArgsList.append("-playdemo");
+      else if(ui->radioButton_timeDemo->isChecked())
+         commandArgsList.append("-timedemo");
+      else if(ui->radioButton_fastDemo->isChecked())
+         commandArgsList.append("-fastdemo");
+      commandArgsList.append(ui->lineEdit_demoPlay->text());
+   }
 
    // "Network" tab
+   if(!ui->lineEdit_ip_1->text().isEmpty())
+   {
+      if(ui->spinBox_playerNumber->value() == 1)
+      {
+         // Player is hosting
+         if(ui->comboBox_gameType->currentIndex() == 1)
+            commandArgsList.append("-deathmatch");
+
+         if(!ui->lineEdit_fragLimit->text().isEmpty())
+         {
+            commandArgsList.append("-frags");
+            commandArgsList.append(ui->lineEdit_fragLimit->text());
+         }
+         if(!ui->lineEdit_timeLimit->text().isEmpty())
+         {
+            commandArgsList.append("-timer");
+            commandArgsList.append(ui->lineEdit_timeLimit->text());
+         }
+         if(!ui->lineEdit_turbo->text().isEmpty())
+         {
+            commandArgsList.append("-turbo");
+            commandArgsList.append(ui->lineEdit_turbo->text());
+         }
+         if(!ui->lineEdit_dmFlags->text().isEmpty())
+         {
+            commandArgsList.append("-dmflags");
+            commandArgsList.append(ui->lineEdit_dmFlags->text());
+         }
+      }
+
+      commandArgsList.append("-net");
+      commandArgsList.append(QString::number(ui->spinBox_playerNumber->value()));
+      commandArgsList.append(ui->lineEdit_ip_1->text());
+      if(!ui->lineEdit_ip_2->text().isEmpty())
+         commandArgsList.append(ui->lineEdit_ip_2->text());
+      if(!ui->lineEdit_ip_3->text().isEmpty())
+         commandArgsList.append(ui->lineEdit_ip_3->text());
+   }
 
 
    // Actually write results
    argBox->clear();
    for(const QString &str : commandArgsList)
    {
-      if(argBox->textCursor().columnNumber() == 1)
-         argBox->insertPlainText(str);
-      else if(str.startsWith("-"))
-         argBox->appendPlainText(str); // Adds newline by default
+      QString displayStr;
+      if(str.contains(' '))
+         displayStr = '"' + str + '"';
       else
-         argBox->insertPlainText(" " + str);
+         displayStr = str;
+
+      if(argBox->textCursor().columnNumber() == 1)
+         argBox->insertPlainText(displayStr);
+      else if(str.startsWith("-"))
+         argBox->appendPlainText(displayStr); // Adds newline by default
+      else
+         argBox->insertPlainText(" " + displayStr);
    }
 
    // Other parameters stuff has to be done last based on how I coded result writing
@@ -256,6 +323,14 @@ void MainWindow::on_pushButton_viewDemo_choose_released()
       ui->lineEdit_demoPlay->setText(fileStr);
 }
 void MainWindow::on_pushButton_viewDemo_clear_released() { ui->lineEdit_demoPlay->clear(); }
+
+void MainWindow::on_pushButton_network_clear_released()
+{
+   ui->spinBox_playerNumber->setValue(1);
+   ui->lineEdit_ip_1->clear();
+   ui->lineEdit_ip_2->clear();
+   ui->lineEdit_ip_3->clear();
+}
 
 //
 // Run EE w/ the appropriate args then kill this application
