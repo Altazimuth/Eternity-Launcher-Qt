@@ -188,39 +188,45 @@ void SetUserPath()
       QDir eternityUser(qEnvironmentVariable("ETERNITYUSER"));
       res = CheckUserPath(eternityUser);
       if(res == BASE_ISGOOD)
+      {
          userPath = eternityUser;
+         source = BASE_ENVIRON;
+      }
    }
 
    // TODO: TEST THIS, GOOD LORD TEST THIS
    // check OS-specific home dir
 #ifdef Q_OS_LINUX
-   bool pathSet = true;
-   if(res != BASE_ISGOOD && qEnvironmentVariableIsSet("XDG_CONFIG_HOME"))
-      userPath = QDir(qEnvironmentVariable("XDG_CONFIG_HOME"));
-   else if(qEnvironmentVariableIsSet("HOME"))
+   if(res != BASE_ISGOOD)
    {
-      userPath = QDir(qEnvironmentVariable("HOME"));
-      userPath.mkdir(".config");
-      userPath.cd(".config");
-   }
-   else
-      pathSet = false;
-
-   if(pathSet)
-   {
-      // Try to create this directory and populate it with needed directories.
-      userPath.mkdir("eternity");
-      userPath.cd("eternity");
-      if(userPath.mkdir("user"))
+      bool pathSet = true;
+      if(qEnvironmentVariableIsSet("XDG_CONFIG_HOME"))
+         userPath = QDir(qEnvironmentVariable("XDG_CONFIG_HOME"));
+      else if(qEnvironmentVariableIsSet("HOME"))
       {
-         userPath.cd("user");
-         for(size_t i = 0; i != (sizeof(userdirs) / sizeof(*userdirs)); i++)
-            userPath.mkdir(userdirs[i]);
+         userPath = QDir(qEnvironmentVariable("HOME"));
+         userPath.mkdir(".config");
+         userPath.cd(".config");
       }
+      else
+         pathSet = false;
 
-      res = CheckUserPath(userPath);
-      if(res == BASE_ISGOOD)
-         source = BASE_HOMEDIR;
+      if(pathSet)
+      {
+         // Try to create this directory and populate it with needed directories.
+         userPath.mkdir("eternity");
+         userPath.cd("eternity");
+         if(userPath.mkdir("user"))
+         {
+            userPath.cd("user");
+            for(size_t i = 0; i != (sizeof(userdirs) / sizeof(*userdirs)); i++)
+               userPath.mkdir(userdirs[i]);
+         }
+
+         res = CheckUserPath(userPath);
+         if(res == BASE_ISGOOD)
+            source = BASE_HOMEDIR;
+      }
    }
 #endif
 
@@ -234,7 +240,10 @@ void SetUserPath()
       QDir exeUserPath = QCoreApplication::applicationDirPath() + "/user";
       res = CheckUserPath(exeUserPath);
       if(res == BASE_ISGOOD)
+      {
          userPath = exeUserPath;
+         source = BASE_EXEDIR;
+      }
    }
 
    if(res != BASE_ISGOOD)
@@ -242,14 +251,20 @@ void SetUserPath()
       QDir exeWorkingPath = QDir::currentPath() + "/user";
       res = CheckUserPath(exeWorkingPath);
       if(res == BASE_ISGOOD)
+      {
          userPath = exeWorkingPath;
+         source = BASE_WORKING;
+      }
    }
 
-   if(res != BASE_ISGOOD)
-   {
-      QDir exeWorkingPath = QDir::currentPath() + "/../user";
-      res = CheckUserPath(exeWorkingPath);
-      if(res == BASE_ISGOOD)
-         userPath = exeWorkingPath;
-   }
+   //if(res != BASE_ISGOOD)
+   //{
+   //   QDir exeWorkingPath = QDir::currentPath() + "/../user";
+   //   res = CheckUserPath(exeWorkingPath);
+   //   if(res == BASE_ISGOOD)
+   //   {
+   //      userPath = exeWorkingPath;
+   //      source = BASE_BASEPARENT;
+   //   }
+   //}
 }
