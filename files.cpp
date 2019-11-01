@@ -163,7 +163,7 @@ void SetUserPath()
    {
       userPath = QDir(qEnvironmentVariable("HOME"));
       userPath.mkdir(".config");
-      userPath.setPath(userPath.path() + "/.config");
+      userPath.cd(".config");
    }
    else
       pathSet = false;
@@ -172,10 +172,10 @@ void SetUserPath()
    {
       // Try to create this directory and populate it with needed directories.
       userPath.mkdir("eternity");
-      userPath.setPath(userPath.path() + "/eternity");
+      userPath.cd("eternity");
       if(userPath.mkdir("user"))
       {
-         userPath.setPath(userPath.path() + "/user");
+         userPath.cd("user");
          for(size_t i = 0; i != (sizeof(userdirs) / sizeof(*userdirs)); i++)
             userPath.mkdir(userdirs[i]);
       }
