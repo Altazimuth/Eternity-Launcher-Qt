@@ -136,24 +136,33 @@ void SetBasePath()
 // /user code
 //
 
-bool CheckUserPath(const QDir &path)
+int CheckUserPath(const QDir &path)
 {
-   QDirIterator itr(path);
+   int ret = -1;
 
-   int score = 0;
-   while(itr.hasNext())
+   if(path.exists())
    {
-      const QString filename = itr.fileName();
+      int score = 0;
 
-      if(filename == "doom")
-         ++score;
-      else if(filename == "shots")
-         ++score;
+      for(QDirIterator itr(path); itr.hasNext(); itr.next())
+      {
+         const QString filename = itr.fileName();
 
-      itr.next();
+         if(filename == "doom")
+            ++score;
+         else if(filename == "shots")
+            ++score;
+      }
+
+      if(score >= 2)
+         ret = BASE_ISGOOD;
+      else
+         ret = BASE_NOTEEBASE;
    }
+   else
+      ret = BASE_NOTEXIST;
 
-   return score >= 2;
+   return ret;
 }
 
 #ifdef Q_OS_LINUX
@@ -172,22 +181,21 @@ static const char *const userdirs[] =
 void SetUserPath()
 {
    QDir userPath;
+   int res = BASE_NOTEXIST, source = BASE_NUMBASE;
 
    if(qEnvironmentVariableIsSet("ETERNITYUSER"))
    {
       QDir eternityUser(qEnvironmentVariable("ETERNITYUSER"));
-      if(eternityUser.exists() && CheckUserPath(eternityUser))
-      {
+      res = CheckUserPath(eternityUser);
+      if(res == BASE_ISGOOD)
          userPath = eternityUser;
-         return;
-      }
    }
 
    // TODO: TEST THIS, GOOD LORD TEST THIS
    // check OS-specific home dir
 #ifdef Q_OS_LINUX
    bool pathSet = true;
-   if(qEnvironmentVariableIsSet("XDG_CONFIG_HOME"))
+   if(res != BASE_ISGOOD && qEnvironmentVariableIsSet("XDG_CONFIG_HOME"))
       userPath = QDir(qEnvironmentVariable("XDG_CONFIG_HOME"));
    else if(qEnvironmentVariableIsSet("HOME"))
    {
@@ -209,6 +217,10 @@ void SetUserPath()
          for(size_t i = 0; i != (sizeof(userdirs) / sizeof(*userdirs)); i++)
             userPath.mkdir(userdirs[i]);
       }
+
+      res = CheckUserPath(userPath);
+      if(res == BASE_ISGOOD)
+         source = BASE_HOMEDIR;
    }
 #endif
 
@@ -217,33 +229,27 @@ void SetUserPath()
 #else
    QFileInfo eternityPath = QCoreApplication::applicationDirPath() + "/eternity";
 #endif
-   if(eternityPath.exists())
+   if(res != BASE_ISGOOD && eternityPath.exists())
    {
       QDir exeUserPath = QCoreApplication::applicationDirPath() + "/user";
-      if(exeUserPath.exists() && CheckUserPath(exeUserPath))
-      {
+      res = CheckUserPath(exeUserPath);
+      if(res == BASE_ISGOOD)
          userPath = exeUserPath;
-         return;
-      }
    }
 
-   if(!userPath.exists())
+   if(res != BASE_ISGOOD)
    {
       QDir exeWorkingPath = QDir::currentPath() + "/user";
-      if(exeWorkingPath.exists() && CheckUserPath(exeWorkingPath))
-      {
+      res = CheckUserPath(exeWorkingPath);
+      if(res == BASE_ISGOOD)
          userPath = exeWorkingPath;
-         return;
-      }
    }
 
-   if(!userPath.exists())
+   if(res != BASE_ISGOOD)
    {
       QDir exeWorkingPath = QDir::currentPath() + "/../user";
-      if(exeWorkingPath.exists() && CheckUserPath(exeWorkingPath))
-      {
+      res = CheckUserPath(exeWorkingPath);
+      if(res == BASE_ISGOOD)
          userPath = exeWorkingPath;
-         return;
-      }
    }
 }
