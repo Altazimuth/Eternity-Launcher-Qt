@@ -126,6 +126,19 @@ bool CheckUserPath(const QDir &path)
    return score >= 2;
 }
 
+#ifdef Q_OS_LINUX
+static const char *const userdirs[] =
+{
+   "/doom",
+   "/doom2",
+   "/hacx",
+   "/heretic",
+   "/plutonia",
+   "/shots",
+   "/tnt",
+};
+#endif
+
 void SetUserPath()
 {
    QDir userPath;
@@ -140,14 +153,32 @@ void SetUserPath()
       }
    }
 
+   // TODO: TEST THIS, GOOD LORD TEST THIS
+   // check OS-specific home dir
 #ifdef Q_OS_LINUX
-   // TODO: Oh good heavens
+   bool pathSet = true;
    if(qEnvironmentVariableIsSet("XDG_CONFIG_HOME"))
-      userPath = qEnvironmentVariable("XDG_CONFIG_HOME");
-   else
+      userPath = QDir(qEnvironmentVariable("XDG_CONFIG_HOME"));
+   else if(qEnvironmentVariableIsSet("HOME"))
    {
-      userPath = qEnvironmentVariable("HOME");
-      // create userPath + "/.config";
+      userPath = QDir(qEnvironmentVariable("HOME"));
+      userPath.mkdir(".config");
+      userPath.setPath(userPath.path() + "/.config");
+   }
+   else
+      pathSet = false;
+
+   if(pathSet)
+   {
+      // Try to create this directory and populate it with needed directories.
+      userPath.mkdir("eternity");
+      userPath.setPath(userPath.path() + "/eternity");
+      if(userPath.mkdir("user"))
+      {
+         userPath.setPath(userPath.path() + "/user");
+         for(size_t i = 0; i != (sizeof(userdirs) / sizeof(*userdirs)); i++)
+            userPath.mkdir(userdirs[i]);
+      }
    }
 #endif
 
