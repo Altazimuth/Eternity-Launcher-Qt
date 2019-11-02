@@ -55,6 +55,11 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->radioButton_fastDemo,     SIGNAL(toggled(bool)),        this, SLOT(updateParams()));
 
    connect(ui->spinBox_playerNumber,     SIGNAL(valueChanged(int)),    this, SLOT(updateParams()));
+
+
+   connect(ui->action_openBase,          SIGNAL(triggered()),          SLOT(openBase()));
+   connect(ui->action_openUser,          SIGNAL(triggered()),          SLOT(openUser()));
+   connect(ui->pushButton_userDir,       SIGNAL(released()),           SLOT(openUser()));
 }
 
 MainWindow::~MainWindow()
@@ -290,10 +295,18 @@ void MainWindow::removeFile()
    updateParams();
 }
 
+void MainWindow::openBase() { MainWindow::openFolder(GetBasePath()); }
+void MainWindow::openUser() { MainWindow::openFolder(GetUserPath()); }
+
 void MainWindow::openURL(const QString &urlStr)
 {
    QUrl eternityWikiURL(urlStr);
    QDesktopServices::openUrl(eternityWikiURL);
+}
+
+void MainWindow::openFolder(const QString &path)
+{
+   QDesktopServices::openUrl(QUrl::fromLocalFile(path));
 }
 
 //=============================================================================

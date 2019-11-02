@@ -8,6 +8,12 @@
 #include <QDir>
 #include <QDirIterator>
 
+static QString basePath;
+static QString userPath;
+
+QString GetBasePath() { return basePath; }
+QString GetUserPath() { return userPath; }
+
 enum
 {
    BASE_ISGOOD,
@@ -82,7 +88,7 @@ const char *PlatformInstallDirectory()
 
 void SetBasePath()
 {
-   QDir basePath;
+   QDir baseDir;
    int res = BASE_NOTEXIST, source = BASE_NUMBASE;
 
    if(qEnvironmentVariableIsSet("ETERNITYBASE"))
@@ -90,7 +96,7 @@ void SetBasePath()
       QDir eternityBase(qEnvironmentVariable("ETERNITYBASE"));
       res = CheckBasePath(eternityBase);
       if(res == BASE_ISGOOD)
-         basePath = eternityBase;
+         baseDir = eternityBase;
    }
 
    const char *s = PlatformInstallDirectory();
@@ -99,10 +105,7 @@ void SetBasePath()
       const QDir platformInstallDir(s);
       res = CheckBasePath(platformInstallDir);
       if(res == BASE_ISGOOD)
-      {
-         basePath = platformInstallDir;
-         return;
-      }
+         baseDir = platformInstallDir;
    }
 
 #ifdef Q_OS_WIN
@@ -115,7 +118,7 @@ void SetBasePath()
       QDir exeBasePath = QCoreApplication::applicationDirPath() + "/base";
       res = CheckBasePath(exeBasePath);
       if(res == BASE_ISGOOD)
-         basePath = exeBasePath;
+         baseDir = exeBasePath;
    }
 
    if(res != BASE_ISGOOD)
@@ -123,12 +126,14 @@ void SetBasePath()
       QDir exeWorkingPath = QDir::currentPath() + "/base";
       res = CheckBasePath(exeWorkingPath);
       if(res == BASE_ISGOOD)
-         basePath = exeWorkingPath;
+         baseDir = exeWorkingPath;
       else
       {
          // TODO: Oops
       }
    }
+
+   basePath = baseDir.path();
 }
 
 //=============================================================================
@@ -180,7 +185,7 @@ static const char *const userdirs[] =
 
 void SetUserPath()
 {
-   QDir userPath;
+   QDir userDir;
    int res = BASE_NOTEXIST, source = BASE_NUMBASE;
 
    if(qEnvironmentVariableIsSet("ETERNITYUSER"))
@@ -189,7 +194,7 @@ void SetUserPath()
       res = CheckUserPath(eternityUser);
       if(res == BASE_ISGOOD)
       {
-         userPath = eternityUser;
+         userDir = eternityUser;
          source = BASE_ENVIRON;
       }
    }
@@ -201,12 +206,12 @@ void SetUserPath()
    {
       bool pathSet = true;
       if(qEnvironmentVariableIsSet("XDG_CONFIG_HOME"))
-         userPath = QDir(qEnvironmentVariable("XDG_CONFIG_HOME"));
+         userDir = QDir(qEnvironmentVariable("XDG_CONFIG_HOME"));
       else if(qEnvironmentVariableIsSet("HOME"))
       {
-         userPath = QDir(qEnvironmentVariable("HOME"));
-         userPath.mkdir(".config");
-         userPath.cd(".config");
+         userDir = QDir(qEnvironmentVariable("HOME"));
+         userDir.mkdir(".config");
+         userDir.cd(".config");
       }
       else
          pathSet = false;
@@ -214,16 +219,16 @@ void SetUserPath()
       if(pathSet)
       {
          // Try to create this directory and populate it with needed directories.
-         userPath.mkdir("eternity");
-         userPath.cd("eternity");
-         if(userPath.mkdir("user"))
+         userDir.mkdir("eternity");
+         userDir.cd("eternity");
+         if(userDir.mkdir("user"))
          {
-            userPath.cd("user");
+            userDir.cd("user");
             for(size_t i = 0; i != (sizeof(userdirs) / sizeof(*userdirs)); i++)
-               userPath.mkdir(userdirs[i]);
+               userDir.mkdir(userdirs[i]);
          }
 
-         res = CheckUserPath(userPath);
+         res = CheckUserPath(userDir);
          if(res == BASE_ISGOOD)
             source = BASE_HOMEDIR;
       }
@@ -241,7 +246,7 @@ void SetUserPath()
       res = CheckUserPath(exeUserPath);
       if(res == BASE_ISGOOD)
       {
-         userPath = exeUserPath;
+         userDir = exeUserPath;
          source = BASE_EXEDIR;
       }
    }
@@ -252,7 +257,7 @@ void SetUserPath()
       res = CheckUserPath(exeWorkingPath);
       if(res == BASE_ISGOOD)
       {
-         userPath = exeWorkingPath;
+         userDir = exeWorkingPath;
          source = BASE_WORKING;
       }
    }
@@ -263,8 +268,10 @@ void SetUserPath()
    //   res = CheckUserPath(exeWorkingPath);
    //   if(res == BASE_ISGOOD)
    //   {
-   //      userPath = exeWorkingPath;
+   //      userDir = exeWorkingPath;
    //      source = BASE_BASEPARENT;
    //   }
    //}
+
+   userPath = userDir.path();
 }

@@ -18,6 +18,7 @@ public:
 
 private:
    void openURL(const QString &urlStr);
+   static void openFolder(const QString &path);
 
 private slots:
    void updateParams();
@@ -25,6 +26,8 @@ private slots:
    void removeIWAD();
    void addFile();
    void removeFile();
+   static void openBase();
+   static void openUser();
 
    void on_toolButton_wikiCommandArgs_released();
    void on_actionEternity_wiki_triggered();
