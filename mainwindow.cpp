@@ -4,6 +4,7 @@
 
 #include <QDesktopServices>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QProcess>
 
 static QStringList commandArgsList;
@@ -14,8 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
    ui->setupUi(this);
 
-   SetBasePath();
-   SetUserPath();
+   SetPaths();
 
    // Set up events that use common functions
    connect(ui->toolButton_addIWAD,    SIGNAL(released()),  this, SLOT(addIWAD()));

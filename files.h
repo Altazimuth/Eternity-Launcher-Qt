@@ -3,10 +3,10 @@
 
 #include <QString>
 
+QString GetExePath();
 QString GetBasePath();
 QString GetUserPath();
 
-void SetBasePath();
-void SetUserPath();
+void SetPaths();
 
 #endif // FILES_H

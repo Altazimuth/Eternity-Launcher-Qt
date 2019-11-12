@@ -8,6 +8,7 @@
 #include <QDir>
 #include <QDirIterator>
 
+static QString exePath;
 static QString basePath;
 static QString userPath;
 
@@ -34,6 +35,11 @@ enum
    BASE_BASEPARENT, // for user dir only
    BASE_NUMBASE
 };
+
+QString GetExePath()
+{
+   return exePath;
+}
 
 //=============================================================================
 //
@@ -86,7 +92,7 @@ const char *PlatformInstallDirectory()
    return nullptr;
 }
 
-void SetBasePath()
+static void SetBasePath()
 {
    QDir baseDir;
    int res = BASE_NOTEXIST, source = BASE_NUMBASE;
@@ -183,7 +189,7 @@ static const char *const userdirs[] =
 };
 #endif
 
-void SetUserPath()
+static void SetUserPath()
 {
    QDir userDir;
    int res = BASE_NOTEXIST, source = BASE_NUMBASE;
@@ -274,4 +280,20 @@ void SetUserPath()
    //}
 
    userPath = userDir.path();
+}
+
+
+void SetPaths()
+{
+#ifdef Q_OS_WIN
+   QFileInfo eternityPath = QCoreApplication::applicationDirPath() + "/Eternity.exe";
+#else
+   QFileInfo eternityPath = QCoreApplication::applicationDirPath() + "/eternity";
+#endif
+
+   if(eternityPath.exists())
+      exePath = eternityPath.path();
+
+   SetBasePath();
+   SetUserPath();
 }
