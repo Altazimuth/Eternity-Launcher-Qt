@@ -22,6 +22,9 @@ private:
    void openURL(const QString &urlStr);
    static void openFolder(const QString &path);
 
+   void SaveConfig();
+   void LoadConfig();
+
 private slots:
    void updateParams();
    void addIWAD();

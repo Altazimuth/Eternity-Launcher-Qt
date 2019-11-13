@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QProcess>
+#include <QTextStream>
 
 static QStringList commandArgsList;
 
@@ -356,6 +357,8 @@ void MainWindow::on_pushButton_startGame_released()
    QProcess::startDetached(QCoreApplication::applicationDirPath() +"/eternity", commandArgsList);
 #endif
 
+   SaveConfig();
+
    QCoreApplication::quit();
 }
 
@@ -371,4 +374,61 @@ QStringList MainWindow::getIWADs() const
       ret.append(ui->comboBox_IWAD->itemText((i)));
 
    return ret;
+}
+
+//=============================================================================
+//
+// Config
+//
+
+void MainWindow::SaveConfig()
+{
+   const QString cfgStr(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+   if(cfgStr.isEmpty())
+      return;
+
+   QDir cfgDir(cfgStr);
+   if(!cfgDir.exists())
+   {
+      if(QDir().mkpath(cfgStr))
+      {
+         // TODO: Error or warning or something
+         return;
+      }
+   }
+
+   const QString cfgFileStr = cfgDir.path() + "/config.cfg";
+
+   QFile cfgFile(cfgFileStr);
+   if(!cfgFile.open(QIODevice::WriteOnly))
+   {
+      // TODO: Error or warning or something
+      return;
+   }
+
+   QTextStream cfgFileText(&cfgFile);
+
+   cfgFileText << "[IWADS]\n";
+   const QStringList iwadStrs(getIWADs());
+   for(const QString &iwadStr : iwadStrs)
+      cfgFileText << iwadStr << '\n';
+
+   cfgFile.close();
+}
+
+void MainWindow::LoadConfig()
+{
+   const QString cfgStr(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+   if(cfgStr.isEmpty())
+      return;
+
+   const QDir cfgDir(cfgStr);
+   if(!cfgDir.exists())
+      return;
+
+   const QFileInfo cfgFilePath(cfgDir.path() + "/config.cfg");
+   if(!cfgFilePath.exists())
+      return;
+
+   // ...
 }
