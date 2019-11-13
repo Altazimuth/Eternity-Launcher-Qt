@@ -16,6 +16,8 @@ public:
    ~MainWindow();
    void postDisplayConfig();
 
+   QStringList getIWADs() const;
+
 private:
    void openURL(const QString &urlStr);
    static void openFolder(const QString &path);

@@ -358,3 +358,17 @@ void MainWindow::on_pushButton_startGame_released()
 
    QCoreApplication::quit();
 }
+
+//=============================================================================
+//
+// Odds and ends
+//
+
+QStringList MainWindow::getIWADs() const
+{
+   QStringList ret;
+   for(int i = 0; i < ui->comboBox_IWAD->count(); i++)
+      ret.append(ui->comboBox_IWAD->itemText((i)));
+
+   return ret;
+}
