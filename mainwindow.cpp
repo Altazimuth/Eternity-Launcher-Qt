@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QProcess>
+#include <QSettings>
 #include <QTextStream>
 
 static QStringList commandArgsList;
@@ -109,6 +110,8 @@ void MainWindow::postDisplayConfig()
    ui->label_eternityLogo->setFixedSize(editHeight, editHeight);
 
    ui->tabWidget->setFixedSize(ui->tabWidget->width(), ui->tabWidget->height());
+
+   LoadConfig();
 }
 
 //=============================================================================
@@ -387,33 +390,18 @@ void MainWindow::SaveConfig()
    if(cfgStr.isEmpty())
       return;
 
-   QDir cfgDir(cfgStr);
-   if(!cfgDir.exists())
+   if(!QDir(cfgStr).exists())
    {
-      if(QDir().mkpath(cfgStr))
+      if(!QDir().mkpath(cfgStr))
       {
          // TODO: Error or warning or something
          return;
       }
    }
 
-   const QString cfgFileStr = cfgDir.path() + "/config.cfg";
+   QSettings cfgSettings(cfgStr + "/eternity-launcher.ini", QSettings::IniFormat);
 
-   QFile cfgFile(cfgFileStr);
-   if(!cfgFile.open(QIODevice::WriteOnly))
-   {
-      // TODO: Error or warning or something
-      return;
-   }
-
-   QTextStream cfgFileText(&cfgFile);
-
-   cfgFileText << "[IWADS]\n";
-   const QStringList iwadStrs(getIWADs());
-   for(const QString &iwadStr : iwadStrs)
-      cfgFileText << iwadStr << '\n';
-
-   cfgFile.close();
+   cfgSettings.setValue("IWADS", (getIWADs()));
 }
 
 void MainWindow::LoadConfig()
@@ -422,13 +410,16 @@ void MainWindow::LoadConfig()
    if(cfgStr.isEmpty())
       return;
 
-   const QDir cfgDir(cfgStr);
-   if(!cfgDir.exists())
+   const QFileInfo cfgFileInfo(cfgStr + "/eternity-launcher.ini");
+   if(!cfgFileInfo.exists())
       return;
 
-   const QFileInfo cfgFilePath(cfgDir.path() + "/config.cfg");
-   if(!cfgFilePath.exists())
-      return;
+   QSettings cfgSettings(cfgFileInfo.filePath(), QSettings::IniFormat);
 
-   // ...
+   cfgSettings.sync();
+   QVariant cfgVal;
+
+   cfgVal = cfgSettings.value("IWADS", QStringList());
+   if(!cfgVal.toStringList().empty())
+      ui->comboBox_IWAD->addItems(cfgVal.toStringList());
 }
