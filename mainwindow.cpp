@@ -318,8 +318,8 @@ void MainWindow::openFolder(const QString &path)
 // Events (slots)
 //
 
-void MainWindow::on_toolButton_wikiCommandArgs_released() { openURL("http://eternity.youfailit.net/index.php?title=List_of_command_line_parameters"); }
-void MainWindow::on_actionEternity_wiki_triggered()       { openURL("http://eternity.youfailit.net/wiki/Main_Page"); }
+void MainWindow::on_toolButton_wikiCommandArgs_released() { MainWindow::openURL("http://eternity.youfailit.net/index.php?title=List_of_command_line_parameters"); }
+void MainWindow::on_actionEternity_wiki_triggered()       { MainWindow::openURL("http://eternity.youfailit.net/wiki/Main_Page"); }
 
 void MainWindow::on_pushButton_warp_choose_released()
 {
@@ -354,11 +354,9 @@ void MainWindow::on_pushButton_network_clear_released()
 //
 void MainWindow::on_pushButton_startGame_released()
 {
-#ifdef Q_OS_WIN
-   QProcess::startDetached(QCoreApplication::applicationDirPath() +"/Eternity.exe", commandArgsList);
-#else
-   QProcess::startDetached(QCoreApplication::applicationDirPath() +"/eternity", commandArgsList);
-#endif
+   const QString exePath(GetExePath());
+   if(!exePath.isEmpty())
+      QProcess::startDetached(exePath, commandArgsList);
 
    SaveConfig();
 

@@ -114,12 +114,7 @@ static void SetBasePath()
          baseDir = platformInstallDir;
    }
 
-#ifdef Q_OS_WIN
-   QFileInfo eternityPath = QCoreApplication::applicationDirPath() + "/Eternity.exe";
-#else
-   QFileInfo eternityPath = QCoreApplication::applicationDirPath() + "/eternity";
-#endif
-   if(res != BASE_ISGOOD && eternityPath.exists())
+   if(res != BASE_ISGOOD && !exePath.isEmpty())
    {
       QDir exeBasePath = QCoreApplication::applicationDirPath() + "/base";
       res = CheckBasePath(exeBasePath);
@@ -268,16 +263,22 @@ static void SetUserPath()
       }
    }
 
-   //if(res != BASE_ISGOOD)
-   //{
-   //   QDir exeWorkingPath = QDir::currentPath() + "/../user";
-   //   res = CheckUserPath(exeWorkingPath);
-   //   if(res == BASE_ISGOOD)
-   //   {
-   //      userDir = exeWorkingPath;
-   //      source = BASE_BASEPARENT;
-   //   }
-   //}
+   if(!basePath.isEmpty())
+   {
+      if(res != BASE_ISGOOD)
+      {
+         QDir baseParentPath = basePath + "/../user";
+         res = CheckUserPath(baseParentPath);
+         if(res == BASE_ISGOOD)
+         {
+            userDir = baseParentPath;
+            source = BASE_BASEPARENT;
+         }
+      }
+
+      if(res != BASE_ISGOOD)
+         userDir = QDir(basePath);
+   }
 
    userPath = userDir.path();
 }

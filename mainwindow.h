@@ -19,7 +19,7 @@ public:
    QStringList getIWADs() const;
 
 private:
-   void openURL(const QString &urlStr);
+   static void openURL(const QString &urlStr);
    static void openFolder(const QString &path);
 
    void SaveConfig();
